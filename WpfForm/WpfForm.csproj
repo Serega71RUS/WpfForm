@@ -303,6 +303,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Source\number-1.png" />
+    <Resource Include="Source\number-3.png" />
+    <Resource Include="Source\number-2.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="db1.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -310,10 +315,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>db1.mdf</DependentUpon>
     </Content>
-    <Resource Include="Source\number-1.png" />
-    <Resource Include="Source\number-3.png" />
-    <Resource Include="Source\number-2.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

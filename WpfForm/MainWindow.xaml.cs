@@ -113,7 +113,6 @@ namespace WpfForm
             Thread disp = new Thread(SummFactorial);
             disp.Start();
         }
-
         private void Page3()
         {
             UpdateDB();
@@ -154,7 +153,6 @@ namespace WpfForm
                     }
                 }
             }
-            UpdateDB();
         }
 
         private void UpdateDB()
@@ -173,8 +171,6 @@ namespace WpfForm
                 adapter.InsertCommand.Parameters.Add(new SqlParameter("@Number", SqlDbType.NVarChar, 50, "Number"));
                 adapter.InsertCommand.Parameters.Add(new SqlParameter("@FIO", SqlDbType.NVarChar, 50, "FIO"));
                 adapter.InsertCommand.Parameters.Add(new SqlParameter("@Login", SqlDbType.Int, 0, "Login"));
-                //SqlParameter parameter = adapter.InsertCommand.Parameters.Add("@Id", SqlDbType.Int, 0, "Id");
-                //parameter.Direction = ParameterDirection.Output;
 
                 connection.Open();
                 adapter.Fill(DataGridTable);
@@ -203,11 +199,13 @@ namespace WpfForm
                     connection = new SqlConnection(connectionString);
                     SqlCommand command = new SqlCommand(sql, connection);
                     adapter = new SqlDataAdapter(command);
-
+                    adapter.InsertCommand = new SqlCommand("", connection);
+                    adapter.InsertCommand.CommandType = CommandType.StoredProcedure;
+                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@FIO", SqlDbType.NChar, 100, "textboxFIO"));
+                    adapter.InsertCommand.Parameters.Add(new SqlParameter("@Login", SqlDbType.NChar, 100, "textboxLogin"));
                     connection.Open();
                     adapter.Fill(DataGridTable);
                     datagrid1.ItemsSource = DataGridTable.DefaultView;
-                    UpdateDB();
                 }
                 catch (Exception ex)
                 {
@@ -217,6 +215,7 @@ namespace WpfForm
                 {
                     if (connection != null)
                         connection.Close();
+                    UpdateDB();
                     textboxFIO.Clear();
                     textboxLogin.Clear();
                 }
