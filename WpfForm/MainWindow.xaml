@@ -1,0 +1,52 @@
+﻿<Window x:Class="WpfForm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfForm"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="400" Margin="10,10,0,0" VerticalAlignment="Top" Width="774" TabStripPlacement="Left">
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="50" Source="Source/number-1.png"/>
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5" x:Name="gridAll" Margin="-1,10,-0.4,-2.6">
+                    <Grid HorizontalAlignment="Left" Height="38" Margin="10,10,0,0" VerticalAlignment="Top" Width="94" x:Name="gridButton"/>
+                    <Grid x:Name="gridBrowser" HorizontalAlignment="Left" Height="334" Margin="10,53,0,0" VerticalAlignment="Top" Width="693"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="50" Source="Source/number-2.png"/>
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="CalcFactButton" Content="Button" HorizontalAlignment="Left" Margin="19,30,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                    <Label x:Name="fact1lab" Content="Label" HorizontalAlignment="Left" Margin="19,76,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="fact2lab" Content="Label" HorizontalAlignment="Left" Margin="19,118,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="fact3lab" Content="Label" HorizontalAlignment="Left" Margin="19,167,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="factSumlab" Content="Label" HorizontalAlignment="Left" Margin="146,118,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <Image Width="50" Source="Source/number-3.png"/>
+                </TabItem.Header>
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="datagrid1" HorizontalAlignment="Left" Height="342" Margin="10,10,0,0" VerticalAlignment="Top" Width="682" ItemsSource="{Binding }" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Number}" Header="Порядковый номер"/>
+                            <DataGridTextColumn Binding="{Binding FIO}" Header="ФИО" Width="250"/>
+                            <DataGridTextColumn Binding="{Binding Login}" Header="Логин" Width="200"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox x:Name="textboxFIO" HorizontalAlignment="Left" Height="23" Margin="136,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239"/>
+                    <TextBox x:Name="textboxLogin" HorizontalAlignment="Left" Height="23" Margin="394,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
+                    <Button x:Name="AddString" Content="Добавить строку" HorizontalAlignment="Left" Margin="571,365,0,0" VerticalAlignment="Top" Width="121" Click="AddString_Click"/>
+                    <Button x:Name="DelString" Content="Удалить строку" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="90" Click="DelString_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
