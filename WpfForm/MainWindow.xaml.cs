@@ -157,7 +157,7 @@ namespace WpfForm
 
         private void UpdateDB()
         {
-            string sql = "select * from Users order by Number";
+            string sql = "select * from Users";
             DataGridTable = new DataTable();
             SqlConnection connection = null;
             try
