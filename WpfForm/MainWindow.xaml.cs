@@ -52,9 +52,8 @@ namespace WpfForm
 
         private void SetTimer()
         {
-            // Create a timer with a two second interval.
-            aTimer = new System.Timers.Timer(2000);
-            // Hook up the Elapsed event for the timer. 
+            aTimer = new System.Timers.Timer(1000);
+
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
@@ -97,11 +96,6 @@ namespace WpfForm
 
         private static void ThreeTasks()
         {
-            //var task1 = Task.Factory.StartNew(() =>
-            //{
-
-            //    
-            //});
             Task<int>[] tasks3 = new Task<int>[3]
 {
                 new Task<int>(() => fact1 = factorial.factorial.fact(10, true)),
@@ -113,7 +107,6 @@ namespace WpfForm
                 t.Start();
             Task.WaitAll(tasks3);
             status = true;
-            ///task1.Wait();
 
         }
 
@@ -128,11 +121,6 @@ namespace WpfForm
                     fact3lab.Content = fact3;
                     int sum = fact1 + fact2 + fact3;
                     factSumlab.Content = sum;
-                    //int f1 = Convert.ToInt32(fact1lab.Content);
-                    //int f2 = Convert.ToInt32(fact1lab.Content);
-                    //int f3 = Convert.ToInt32(fact1lab.Content);
-                    //int sum = f1 + f2 + f3;
-                    //factSumlab.Content = sum;
                 });
                 status = false;
             }
@@ -148,13 +136,9 @@ namespace WpfForm
             factSumlab.Content = 0;
             Thread thread = new Thread(new ThreadStart(ThreeTasks));
             thread.Start();
-            //thread.Join();
             fact1lab.Content = fact1;
             fact2lab.Content = fact2;
             fact3lab.Content = fact3;
-            //factSumlab.Content = 0;
-            //Thread disp = new Thread(SummFactorial);
-            //disp.Start();
         }
         private void Page3()
         {
