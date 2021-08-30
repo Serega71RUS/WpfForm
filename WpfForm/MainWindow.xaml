@@ -5,16 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfForm"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Grid>
-        <TabControl HorizontalAlignment="Left" Height="400" Margin="10,10,0,0" VerticalAlignment="Top" Width="774" TabStripPlacement="Left">
+        Title="MainWindow" Height="450" Width="814.4" Loaded="Window_Loaded">
+    <Grid Margin="0,0,-0.4,0" Width="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="237*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Margin="14,10,9.6,10" TabStripPlacement="Left" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch">
             <TabItem>
                 <TabItem.Header>
                     <Image Width="50" Source="Source/number-1.png"/>
                 </TabItem.Header>
-                <Grid Background="#FFE5E5E5" x:Name="gridAll" Margin="-1,10,-0.4,-2.6">
+                <Grid Background="#FFE5E5E5" x:Name="gridAll" Margin="-1,10,-0.4,-2.6" >
                     <Grid HorizontalAlignment="Left" Height="38" Margin="10,10,0,0" VerticalAlignment="Top" Width="94" x:Name="gridButton"/>
-                    <Grid x:Name="gridBrowser" HorizontalAlignment="Left" Height="334" Margin="10,53,0,0" VerticalAlignment="Top" Width="693"/>
+                    <Grid x:Name="gridBrowser" Margin="10,53,0,0" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -34,17 +38,24 @@
                     <Image Width="50" Source="Source/number-3.png"/>
                 </TabItem.Header>
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="datagrid1" HorizontalAlignment="Left" Height="342" Margin="10,10,0,0" VerticalAlignment="Top" Width="682" ItemsSource="{Binding }" AutoGenerateColumns="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="5" Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Stretch" Width="auto" Height="auto">
+                        <Button x:Name="DelString" Content="Удалить строку" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="90" Click="DelString_Click" Padding="5"/>
+                        <TextBox x:Name="textboxFIO" HorizontalAlignment="Left" Height="27" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top" Width="239" Padding="5"/>
+                        <TextBox x:Name="textboxLogin" HorizontalAlignment="Left" Height="27" Margin="10" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Padding="5"/>
+                        <Button x:Name="AddString" Content="Добавить строку" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="121" Click="AddString_Click" Padding="5"/>
+                    </StackPanel>
+                    <DataGrid x:Name="datagrid1" Margin="10,10,0,0" VerticalAlignment="Top" ItemsSource="{Binding }" AutoGenerateColumns="False" Grid.Row="0" HorizontalAlignment="Stretch" Width="auto" Height="auto">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Number}" Header="Порядковый номер"/>
                             <DataGridTextColumn Binding="{Binding FIO}" Header="ФИО" Width="250"/>
                             <DataGridTextColumn Binding="{Binding Login}" Header="Логин" Width="200"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBox x:Name="textboxFIO" HorizontalAlignment="Left" Height="23" Margin="136,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="239"/>
-                    <TextBox x:Name="textboxLogin" HorizontalAlignment="Left" Height="23" Margin="394,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172"/>
-                    <Button x:Name="AddString" Content="Добавить строку" HorizontalAlignment="Left" Margin="571,365,0,0" VerticalAlignment="Top" Width="121" Click="AddString_Click"/>
-                    <Button x:Name="DelString" Content="Удалить строку" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="90" Click="DelString_Click"/>
+
                 </Grid>
             </TabItem>
         </TabControl>

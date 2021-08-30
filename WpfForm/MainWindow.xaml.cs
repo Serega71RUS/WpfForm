@@ -18,6 +18,7 @@ using System.Threading;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Timers;
 
 namespace WpfForm
 {
@@ -30,6 +31,8 @@ namespace WpfForm
         public static int fact1 = 0;
         public static int fact2 = 0;
         public static int fact3 = 0;
+        private static System.Timers.Timer aTimer;
+        public static bool status = false;
         public static System.Windows.Forms.WebBrowser mtbDate = new System.Windows.Forms.WebBrowser();
         string connectionString;
         SqlDataAdapter adapter;
@@ -42,8 +45,25 @@ namespace WpfForm
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            SetTimer();
             Page1();
             Page3();
+        }
+
+        private void SetTimer()
+        {
+            // Create a timer with a two second interval.
+            aTimer = new System.Timers.Timer(2000);
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            Thread disp = new Thread(SummFactorial);
+            disp.Start();
         }
 
         private void Page1()
@@ -77,41 +97,64 @@ namespace WpfForm
 
         private static void ThreeTasks()
         {
+            //var task1 = Task.Factory.StartNew(() =>
+            //{
+
+            //    
+            //});
             Task<int>[] tasks3 = new Task<int>[3]
-            {
+{
                 new Task<int>(() => fact1 = factorial.factorial.fact(10, true)),
                 new Task<int>(() => fact2 = factorial.factorial.fact(10, true)),
                 new Task<int>(() => fact3 = factorial.factorial.fact(10, true))
-            };
+};
 
             foreach (var t in tasks3)
                 t.Start();
             Task.WaitAll(tasks3);
+            status = true;
+            ///task1.Wait();
 
         }
 
         private void SummFactorial()
         {
-            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (ThreadStart)delegate () 
+            if (status == true)
             {
-                int f1 = Convert.ToInt32(fact1lab.Content);
-                int f2 = Convert.ToInt32(fact1lab.Content);
-                int f3 = Convert.ToInt32(fact1lab.Content);
-                int sum = f1+f2+f3;
-                factSumlab.Content = sum;
-            });
+                this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (ThreadStart)delegate ()
+                {
+                    fact1lab.Content = fact1;
+                    fact2lab.Content = fact2;
+                    fact3lab.Content = fact3;
+                    int sum = fact1 + fact2 + fact3;
+                    factSumlab.Content = sum;
+                    //int f1 = Convert.ToInt32(fact1lab.Content);
+                    //int f2 = Convert.ToInt32(fact1lab.Content);
+                    //int f3 = Convert.ToInt32(fact1lab.Content);
+                    //int sum = f1 + f2 + f3;
+                    //factSumlab.Content = sum;
+                });
+                status = false;
+            }
         }
+
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            fact1lab.Content = 0;
+            fact2lab.Content = 0;
+            fact3lab.Content = 0;
+            factSumlab.Content = 0;
             Thread thread = new Thread(new ThreadStart(ThreeTasks));
             thread.Start();
-            thread.Join();
+            //thread.Join();
             fact1lab.Content = fact1;
             fact2lab.Content = fact2;
             fact3lab.Content = fact3;
-            Thread disp = new Thread(SummFactorial);
-            disp.Start();
+            //factSumlab.Content = 0;
+            //Thread disp = new Thread(SummFactorial);
+            //disp.Start();
         }
         private void Page3()
         {
